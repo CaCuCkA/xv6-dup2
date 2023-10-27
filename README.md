@@ -59,3 +59,7 @@ the original.
 First, verify if `oldfd` is valid using the `argfd` function, which checks its presence in the file table. Next, ensure
 `newfd` is non-negative and less than `NOFILE`. If `oldfd` and `newfd` are identical, simply return `newfd`. If `newfd`
 points to an open file, close it. Then, point `newfd` to the `oldfd` file and duplicate it using `filedup(fds)`.
+
+## Attention
+
+`sys_dup2()` is implemented in `sysfile.c`
