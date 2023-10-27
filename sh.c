@@ -106,18 +106,16 @@ runcmd(struct cmd *cmd)
     if(pipe(p) < 0)
       panic("pipe");
     if(fork1() == 0){
-      close(1);
-      dup(p[1]);
-      close(p[0]);
-      close(p[1]);
+        dup2(p[1], 1);
+        close(p[0]);
+        close(p[1]);
       runcmd(pcmd->left);
     }
     if(fork1() == 0){
-      close(0);
-      dup(p[0]);
-      close(p[0]);
-      close(p[1]);
-      runcmd(pcmd->right);
+        dup2(p[0], 0);
+        close(p[0]);
+        close(p[1]);
+        runcmd(pcmd->right);
     }
     close(p[0]);
     close(p[1]);
